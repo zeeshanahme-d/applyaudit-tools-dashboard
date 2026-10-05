@@ -1,37 +1,31 @@
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CircleAlert } from "lucide-react";
 import { appConfig } from "@/config/app";
-import { cn } from "@/lib/utils";
+import type { Artifact } from "@/data/tools";
 import { DropOverlay } from "@/components/analyzer/DropOverlay";
 import { useFileDrop } from "@/hooks/use-file-drop";
 import { validateResumeFile } from "@/lib/validate-resume-file";
 import { handOffAudit, type HandedOffAudit } from "@/pages/resume-analyzer/core/_handoff";
-import { StartSheet } from "./components/StartSheet";
-import { SampleMarkup } from "./components/SampleMarkup";
-import { ComingSoonList } from "./components/ComingSoonList";
-
-/** One load sequence: each block rises into place, a beat after the one before. */
-const ENTER = "animate-in fade-in-0 slide-in-from-bottom-3 duration-500 ease-out fill-mode-both";
-const at = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
-
-function greeting(hour: number) {
-  if (hour >= 5 && hour < 12) return "Good morning";
-  if (hour >= 12 && hour < 18) return "Good afternoon";
-  return "Good evening";
-}
+import { useLastResumeAnalysis } from "@/pages/resume-analyzer/core/hook/useLastResumeAnalysis";
+import { StartAnalysis } from "./components/StartAnalysis";
+import { CareerSurface } from "./components/CareerSurface";
+import { AnalysisLibrary } from "./components/AnalysisLibrary";
 
 /**
- * The desk, empty: the one thing to do (put a resume on it), what comes back,
- * and what is being built. Nothing is stored, so every visit starts here.
+ * The career workspace. Pick a document to inspect and the surface beside it
+ * brings that document forward; once a resume has been audited in this tab,
+ * its scores sit on its sheet and the next fixes lead the panel. Nothing is
+ * stored, so a reload starts at the first audit again.
  */
 export default function Dashboard() {
   const navigate = useNavigate();
+  const audit = useLastResumeAnalysis();
+  const [focus, setFocus] = useState<Artifact>("resume");
   const [dropError, setDropError] = useState<string | null>(null);
 
   // The analyzer takes it from here and starts at once.
-  const start = (audit: HandedOffAudit) => {
-    handOffAudit(audit);
+  const start = (handoff: HandedOffAudit) => {
+    handOffAudit(handoff);
     navigate("/resume-analyzer");
   };
 
@@ -45,39 +39,34 @@ export default function Dashboard() {
   });
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:px-10 lg:pt-14">
+    <div className="mx-auto w-full max-w-7xl px-4 pb-24 pt-8 sm:px-6 lg:px-10 lg:pt-10">
       <title>{`${appConfig.name}: ${appConfig.tagline}`}</title>
 
-      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,27rem)] lg:gap-16">
-        <header className={ENTER}>
-          <p className="text-[14px] text-muted-foreground">{greeting(new Date().getHours())}</p>
-          <h1 className="mt-2 font-serif text-[2.5rem] font-medium leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[3.5rem]">
-            Get your resume marked up before a recruiter reads it.
-          </h1>
-          <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-muted-foreground">
-            Put it on the desk. Every line is checked, the weak ones are highlighted, and the fixes are ranked by the
-            points they add.
-          </p>
-        </header>
+      <header>
+        <p className="text-[13px] font-medium text-muted-foreground">Your career workspace</p>
+        {/* Sized to stay on one line from tablets up, and to break once, after "Compare.", on phones. */}
+        <h1 className="mt-2 font-serif text-[2.5rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-[3rem] md:text-[3.5rem] xl:text-[4rem]">
+          Analyze. Compare. Improve.
+        </h1>
+        <p className="mt-3 max-w-xl text-[15.5px] leading-relaxed text-muted-foreground">
+          Your resume, your LinkedIn profile and the job you want, inspected side by side.
+        </p>
+      </header>
 
-        <div className={ENTER} style={at(120)}>
-          <StartSheet onFile={(file) => start({ file })} onTrySample={() => start({ sample: true })} />
-          {dropError && (
-            <p role="alert" className="mt-3 flex items-start gap-2 text-[13.5px] text-danger">
-              <CircleAlert className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-              {dropError}
-            </p>
-          )}
-        </div>
+      <div className="mt-10 grid items-start gap-14 xl:grid-cols-[minmax(0,23rem)_minmax(0,1fr)] xl:gap-12">
+        <StartAnalysis
+          focus={focus}
+          onFocusChange={setFocus}
+          audit={audit}
+          onFile={(file) => start({ file })}
+          onTrySample={() => start({ sample: true })}
+          error={dropError}
+        />
+        {/* Beside the panel it stays in view, so each choice shows its sheets moving. */}
+        <CareerSurface focus={focus} onFocusChange={setFocus} audit={audit} className="xl:sticky xl:top-20" />
       </div>
 
-      <div className={cn(ENTER, "mt-20")} style={at(260)}>
-        <SampleMarkup />
-      </div>
-
-      <div className={cn(ENTER, "mt-20")} style={at(360)}>
-        <ComingSoonList />
-      </div>
+      <AnalysisLibrary className="mt-24" />
 
       {dragging && <DropOverlay label="Drop to audit your resume" />}
     </div>
