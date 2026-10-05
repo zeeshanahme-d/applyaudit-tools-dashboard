@@ -128,7 +128,8 @@
   --secondary: #ecefea;
   --secondary-foreground: #151a17;
   --muted: #dde1db;
-  --muted-foreground: #4f5853;
+  /* Secondary text: 7:1 or more on the desk, the rail and the paper. */
+  --muted-foreground: #3f4743;
   --accent: rgb(255 212 59 / 0.42);
   --accent-foreground: #151a17;
   --destructive: #b42318;
@@ -151,7 +152,7 @@
 
   --paper: #fdfdfb;
   --paper-ink: #1c201e;
-  --paper-muted: #59615d;
+  --paper-muted: #474f4b;
   --paper-line: rgb(28 32 30 / 0.12);
   --paper-scheme: light;
   /* Yellow as text or a line on white is unreadable: on paper it is olive gold. */
@@ -203,7 +204,8 @@
     --secondary: #252e2b;
     --secondary-foreground: #e7ece9;
     --muted: #252e2b;
-    --muted-foreground: #9ba7a1;
+    /* Secondary text: 7:1 or more on the desk, the rail and the paper. */
+    --muted-foreground: #b0bab5;
     --accent: rgb(255 212 59 / 0.12);
     --accent-foreground: #ffe48a;
     --destructive: #ff8273;
@@ -229,7 +231,7 @@
        tint behind light text, as dark-mode readers draw it. */
     --paper: #222a27;
     --paper-ink: #e6ebe7;
-    --paper-muted: #a5b0ab;
+    --paper-muted: #b9c3be;
     --paper-line: rgb(230 235 231 / 0.13);
     --paper-scheme: dark;
     --paper-primary: #ffd43b;
