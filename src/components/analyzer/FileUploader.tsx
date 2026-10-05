@@ -2,6 +2,7 @@ import { useState, useCallback, useId, type DragEvent, type ReactNode } from "re
 import { FileUp, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { validateResumeFile } from "@/lib/validate-resume-file";
+import { buttonClass } from "@/components/ui/button";
 
 export interface FileUploaderProps {
   /** The chosen file: the page owns it, so what is shown is always what will be sent. */
@@ -12,6 +13,8 @@ export interface FileUploaderProps {
   description?: string;
   /** The words on the visible "choose" control. */
   chooseLabel?: string;
+  /** Draw the "choose" control as the page's main action (the highlighter), where choosing a file starts the work. */
+  primary?: boolean;
   accept?: string;
   className?: string;
   icon?: ReactNode;
@@ -28,6 +31,7 @@ export function FileUploader({
   title = "Drop your document here",
   description = "PDF, DOCX or TXT",
   chooseLabel = "Choose a file",
+  primary = false,
   accept = ".pdf,.docx,.txt",
   className,
   icon,
@@ -127,7 +131,13 @@ export function FileUploader({
             </span>
             <span className="block font-serif text-[22px] font-medium leading-tight text-paper-ink">{title}</span>
             <span className="mt-1.5 block max-w-xs text-[13px] text-paper-muted">{description}</span>
-            <span className="mt-5 inline-flex h-10 items-center rounded-sm border border-paper-ink/80 px-4 text-[13.5px] font-semibold text-paper-ink transition-colors hover:bg-paper-ink hover:text-paper">
+            <span
+              className={
+                primary
+                  ? buttonClass({ className: "mt-5" })
+                  : "mt-5 inline-flex h-10 items-center rounded-sm border border-paper-ink/80 px-4 text-[13.5px] font-semibold text-paper-ink transition-colors hover:bg-paper-ink hover:text-paper"
+              }
+            >
               {chooseLabel}
             </span>
           </>
