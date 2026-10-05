@@ -392,6 +392,25 @@
   }
 }
 
+/* An index label's rule: drawn down once, as the label arrives. */
+@utility index-tick {
+  transform-origin: top;
+  animation: index-tick 600ms var(--ease-out-expo) both;
+  animation-delay: var(--at, 0ms);
+}
+@keyframes index-tick {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* Entrances inside wait until the element is on screen (data-seen, from useSeen). */
+@utility hold-until-seen {
+  &:not([data-seen]) * {
+    animation-play-state: paused;
+  }
+}
+
 /* ── The scanner: a band of highlighter light moving down the page while the
    server reads it. Indeterminate on purpose: the browser cannot see the
    server's progress, so nothing here pretends to measure it. ── */
