@@ -15,7 +15,7 @@ export const MENU_BUTTON_ID = "app-menu-button";
 /** Phones only; from tablets up the sidebar (rail or full) takes its place. */
 export default function DashboardHeader({ isMobileOpen, setIsMobileOpen }: DashboardHeaderProps) {
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border bg-panel px-4 md:hidden">
+    <header data-print="hide" className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-sidebar-border bg-sidebar px-4 md:hidden">
       <div className="flex items-center gap-2">
         <button
           id={MENU_BUTTON_ID}
@@ -24,7 +24,7 @@ export default function DashboardHeader({ isMobileOpen, setIsMobileOpen }: Dashb
           aria-expanded={isMobileOpen}
           aria-controls="app-sidebar"
           aria-label="Open menu"
-          className="flex size-11 items-center justify-center rounded-sm text-foreground transition-colors hover:bg-muted cursor-pointer"
+          className="flex size-11 items-center justify-center rounded-sm text-foreground transition-colors hover:bg-foreground/5 cursor-pointer"
         >
           <Menu className="h-5 w-5" aria-hidden="true" />
         </button>

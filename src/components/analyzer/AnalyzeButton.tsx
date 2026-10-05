@@ -1,4 +1,4 @@
-import { LoaderCircle, ArrowRight } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 
 export interface AnalyzeButtonProps {
@@ -15,8 +15,8 @@ export function AnalyzeButton({
   onClick,
   isLoading = false,
   disabled = false,
-  label = "Analyze Now",
-  loadingLabel = "Analyzing Profile...",
+  label = "Analyze now",
+  loadingLabel = "Analyzing...",
   className,
   size = "lg",
 }: AnalyzeButtonProps) {
@@ -27,17 +27,8 @@ export function AnalyzeButton({
       disabled={disabled || isLoading}
       className={buttonClass({ size: size === "lg" ? "lg" : "md", className })}
     >
-      {isLoading ? (
-        <>
-          <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
-          <span>{loadingLabel}</span>
-        </>
-      ) : (
-        <>
-          <span>{label}</span>
-          <ArrowRight className="size-4" aria-hidden="true" />
-        </>
-      )}
+      {isLoading && <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />}
+      <span>{isLoading ? loadingLabel : label}</span>
     </button>
   );
 }

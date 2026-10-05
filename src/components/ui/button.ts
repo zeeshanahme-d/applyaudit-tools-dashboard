@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
 /**
- * The marketing site's button (marketing/src/components/ui/button-variants.ts),
- * for links and buttons alike. Hover deepens the tone and lifts 1px (not under
- * reduced motion), pressing sets it back down. Radius 6px, like every control.
+ * Buttons and button-styled links. The primary is the highlighter: yellow
+ * with ink text in both themes, and the only yellow control on a screen.
+ * Hover lifts 1px (not under reduced motion), pressing sets it back down.
  */
 const base = [
   "inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-sm",
@@ -15,14 +15,13 @@ const base = [
 
 const variants = {
   primary: [
-    "bg-cta font-semibold tracking-[-0.005em] text-white hover:bg-cta-hover",
-    // A light top edge, a hairline edge, and a short shadow in the button's own tone.
-    "shadow-[inset_0_1px_0_rgb(255_255_255/0.2),inset_0_0_0_1px_rgb(0_0_0/0.1),0_1px_2px_rgb(14_20_36/0.14),0_4px_12px_-6px_var(--cta)]",
-    "hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.2),inset_0_0_0_1px_rgb(0_0_0/0.12),0_2px_4px_rgb(14_20_36/0.12),0_8px_18px_-8px_var(--cta)]",
-    "active:shadow-[inset_0_1px_0_rgb(255_255_255/0.2),inset_0_0_0_1px_rgb(0_0_0/0.12),0_1px_2px_rgb(14_20_36/0.14)]",
+    "bg-cta font-semibold text-cta-foreground hover:bg-cta-hover",
+    // An ink hairline and a short shadow: a sticky note lifted off the desk.
+    "shadow-[inset_0_0_0_1px_rgb(26_26_16/0.14),0_1px_2px_rgb(0_0_0/0.25)]",
+    "hover:shadow-[inset_0_0_0_1px_rgb(26_26_16/0.16),0_6px_16px_-6px_rgb(255_212_59/0.45)]",
   ],
-  secondary: "border border-border bg-card font-medium text-foreground shadow-raised hover:border-foreground/20",
-  ghost: "font-medium text-muted-foreground hover:bg-muted hover:text-foreground",
+  secondary: "border border-input bg-transparent font-medium text-foreground hover:border-foreground/40 hover:bg-foreground/5",
+  ghost: "font-medium text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
 };
 
 const sizes = {

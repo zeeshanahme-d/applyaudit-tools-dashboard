@@ -50,10 +50,14 @@ export const SEMANTIC_TOKENS: Record<AnalysisState, SemanticVariant> = {
   },
 };
 
-/** A score band's look (getScoreState's colorToken): ring stroke, bar fill, text, pill. */
+/**
+ * A score band's look (getScoreState's colorToken): ring stroke, bar fill,
+ * text, pill. The editor's pens: green excellent, blue good, amber needs
+ * work, red weak. (The "indigo" key is the API's name for the good band.)
+ */
 export const SCORE_TONES: Record<ScoreState["colorToken"], { text: string; stroke: string; bar: string; badge: string }> = {
   emerald: { text: "text-success", stroke: "stroke-success", bar: "bg-success", badge: "border-success-line bg-success-soft text-success" },
-  indigo: { text: "text-primary", stroke: "stroke-primary", bar: "bg-primary", badge: "border-primary/25 bg-accent text-accent-foreground" },
+  indigo: { text: "text-info", stroke: "stroke-info", bar: "bg-info", badge: "border-info-line bg-info-soft text-info" },
   amber: { text: "text-warning", stroke: "stroke-warning", bar: "bg-warning", badge: "border-warning-line bg-warning-soft text-warning" },
   rose: { text: "text-danger", stroke: "stroke-danger", bar: "bg-danger", badge: "border-danger-line bg-danger-soft text-danger" },
 };

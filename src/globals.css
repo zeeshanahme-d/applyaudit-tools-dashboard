@@ -1,26 +1,28 @@
-/* The tools app's design system. It began as the marketing site's
-   (marketing/src/app/globals.css) and keeps its fonts, accent and semantic
-   state colors, but the app is dark-first with its own neutral ladder. */
+/* The tools app's design system: an editor's desk. The app is the desk (a dark
+   blotter by default), the resume is a sheet of paper on it, and the audit is
+   the marking: highlighter on weak lines, pen notes in the margin, a tick on
+   strong ones. Highlighter yellow is the brand; red, amber, blue and green
+   are the editor's pens and keep their meaning everywhere. */
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
-/* next/font sets these on the marketing site; here the self-hosted
-   @fontsource files imported in main.tsx do. */
+/* Self-hosted @fontsource files, imported in main.tsx. */
 :root {
-  --font-inter: "Inter Variable";
-  --font-manrope: "Manrope Variable";
-  --font-jetbrains: "JetBrains Mono Variable";
+  --font-instrument: "Instrument Sans Variable";
+  --font-newsreader: "Newsreader Variable";
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* The interface. */
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  /* The paper and the big moments: headlines, the score. */
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-heading: var(--font-newsreader), ui-serif, Georgia, serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -29,11 +31,6 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -53,7 +50,7 @@
 
   /* An inner surface one step above the card (wells, insets, rows). */
   --color-surface: var(--surface);
-  /* The content panel the pages sit on, between the canvas and the cards. */
+  /* Things resting on the desk that are not paper: the grade slip, menus. */
   --color-panel: var(--panel);
 
   /* Result states: strong, opportunity, warning, issue. Text, tint, hairline. */
@@ -70,15 +67,29 @@
   --color-danger-soft: var(--danger-soft);
   --color-danger-line: var(--danger-line);
 
-  /* Elevation: resting card, floating layer. */
+  /* The sheet of paper and what is written on it: white with dark ink in the
+     light theme, dark slate with light ink in the dark one. Pens always read
+     on their paper (4.5:1 or more). */
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+  --color-paper-muted: var(--paper-muted);
+  --color-paper-line: var(--paper-line);
+  --color-pen-red: var(--pen-red);
+  --color-pen-amber: var(--pen-amber);
+  --color-pen-blue: var(--pen-blue);
+  --color-pen-green: var(--pen-green);
+  --color-mark-issue: var(--mark-issue);
+  --color-mark-warning: var(--mark-warning);
+
+  /* Elevation: resting control, floating layer, a sheet lying on the desk. */
   --shadow-raised: var(--elevation-raised);
   --shadow-float: var(--elevation-float);
-  /* A sheet of paper resting on the page. */
   --shadow-sheet: var(--elevation-sheet);
   --color-primary-hover: var(--primary-hover);
-  /* The primary call to action: one step deeper than --primary. */
+  /* The call to action: highlighter yellow, ink text, in both themes. */
   --color-cta: var(--cta);
   --color-cta-hover: var(--cta-hover);
+  --color-cta-foreground: var(--cta-foreground);
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -90,131 +101,165 @@
 }
 
 @theme {
-  /* Motion: arrive fast and settle; one rhythm for the whole site. */
+  /* Motion: arrive fast and settle; one rhythm for the whole app. */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* ── Light: crisp cool neutrals, ink, indigo. The canvas sits behind the app's
-   white content panel; cards rest on the panel with a hairline and a soft shadow. ── */
+/* ── Light: a pale grey-green desk, white paper, ink. Yellow stays the fill
+   of the main button; as text or a line on a light ground it becomes a deep
+   olive gold, so it stays readable. ── */
 :root {
   color-scheme: light;
-  --background: #f3f4f7;
-  --panel: #ffffff;
-  --foreground: #0b1020;
-  --card: #ffffff;
-  --card-foreground: #0b1020;
-  --popover: #ffffff;
-  --popover-foreground: #0b1020;
-  --surface: #f6f7f9;
-  --primary: #4652eb;
-  --primary-hover: #3843d6;
-  --cta: #4652eb;
-  --cta-hover: #3a45d8;
+  --background: #e4e7e2;
+  --panel: #f6f7f4;
+  --foreground: #151a17;
+  --card: #f6f7f4;
+  --card-foreground: #151a17;
+  --popover: #fbfbf9;
+  --popover-foreground: #151a17;
+  --surface: #ecefea;
+  --primary: #7a5a00;
+  --primary-hover: #634900;
   --primary-foreground: #ffffff;
-  --secondary: #f1f2f5;
-  --secondary-foreground: #1a2030;
-  --muted: #f0f1f4;
-  --muted-foreground: #5b6275;
-  --accent: #eef0ff;
-  --accent-foreground: #3a40c9;
-  --destructive: #c8283f;
-  --border: #e4e6eb;
-  --input: #dcdfe6;
-  --ring: #4652eb;
+  --cta: #ffd43b;
+  --cta-hover: #ffdc5c;
+  --cta-foreground: #1a1a10;
+  --secondary: #ecefea;
+  --secondary-foreground: #151a17;
+  --muted: #dde1db;
+  --muted-foreground: #4f5853;
+  --accent: rgb(255 212 59 / 0.42);
+  --accent-foreground: #151a17;
+  --destructive: #b42318;
+  --border: rgb(21 26 23 / 0.12);
+  --input: rgb(21 26 23 / 0.2);
+  --ring: #151a17;
 
-  --success: #0f7b55;
-  --success-soft: #edf8f3;
-  --success-line: #c3e6d4;
-  --info: #2459d6;
-  --info-soft: #eef3fe;
-  --info-line: #cbdaf9;
-  --warning: #995800;
-  --warning-soft: #fdf6e8;
-  --warning-line: #efd9ad;
-  --danger: #c8283f;
-  --danger-soft: #fdf0f2;
-  --danger-line: #f4c9d1;
+  --success: #146c43;
+  --success-soft: rgb(20 108 67 / 0.08);
+  --success-line: rgb(20 108 67 / 0.25);
+  --info: #1f55c0;
+  --info-soft: rgb(31 85 192 / 0.07);
+  --info-line: rgb(31 85 192 / 0.22);
+  --warning: #8a4b00;
+  --warning-soft: rgb(197 110 0 / 0.1);
+  --warning-line: rgb(197 110 0 / 0.3);
+  --danger: #b42318;
+  --danger-soft: rgb(180 35 24 / 0.07);
+  --danger-line: rgb(180 35 24 / 0.24);
 
-  --chart-1: #4652eb;
-  --chart-2: #0f7b55;
-  --chart-3: #995800;
-  --chart-4: #5b6275;
-  --chart-5: #c8283f;
+  --paper: #fdfdfb;
+  --paper-ink: #1c201e;
+  --paper-muted: #59615d;
+  --paper-line: rgb(28 32 30 / 0.12);
+  --paper-scheme: light;
+  /* Yellow as text or a line on white is unreadable: on paper it is olive gold. */
+  --paper-primary: #7a5a00;
+  --pen-red: #b8281c;
+  --pen-amber: #8a5300;
+  --pen-blue: #2052bd;
+  --pen-green: #157146;
+  --mark-issue: #ffb2a6;
+  --mark-warning: #ffe066;
+
   --radius: 0.625rem;
-  --sidebar: #f3f4f7;
-  --sidebar-foreground: #0b1020;
-  --sidebar-primary: #4652eb;
+  --sidebar: #d9ddd7;
+  --sidebar-foreground: #151a17;
+  --sidebar-primary: #7a5a00;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e7e9ef;
-  --sidebar-accent-foreground: #0b1020;
-  --sidebar-border: #e4e6eb;
-  --sidebar-ring: #4652eb;
+  --sidebar-accent: rgb(21 26 23 / 0.06);
+  --sidebar-accent-foreground: #151a17;
+  --sidebar-border: rgb(21 26 23 / 0.1);
+  --sidebar-ring: #151a17;
 
-  --elevation-raised: 0 1px 2px rgb(16 24 40 / 0.05), 0 1px 3px -1px rgb(16 24 40 / 0.06);
-  --elevation-float: 0 1px 2px rgb(16 24 40 / 0.06), 0 12px 32px -12px rgb(16 24 40 / 0.2);
-  --elevation-sheet: 0 1px 2px rgb(16 24 40 / 0.04), 0 2px 8px -2px rgb(16 24 40 / 0.06);
+  --elevation-raised: 0 1px 2px rgb(20 30 25 / 0.08);
+  --elevation-float: 0 1px 2px rgb(20 30 25 / 0.08), 0 14px 32px -14px rgb(20 30 25 / 0.28);
+  --elevation-sheet: 0 1px 1px rgb(20 30 25 / 0.08), 0 3px 6px -2px rgb(20 30 25 / 0.08),
+    0 22px 44px -22px rgb(20 30 25 / 0.4);
+
+  /* Dark specks: the desk's grain. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ── Dark (the default): navy-black. Depth comes from lightness, one step per
-   layer: canvas, panel, card, surface. Text and states are desaturated tints. ── */
-.dark {
-  color-scheme: dark;
-  --background: #08090d;
-  --panel: #0d1016;
-  --foreground: #eceef4;
-  --card: #12151d;
-  --card-foreground: #eceef4;
-  --popover: #151923;
-  --popover-foreground: #eceef4;
-  --surface: #181c26;
-  --primary: #8b92ff;
-  --primary-hover: #a1a7ff;
-  --cta: #5b62f5;
-  --cta-hover: #6a71fa;
-  --primary-foreground: #0a0d1a;
-  --secondary: #181c26;
-  --secondary-foreground: #eceef4;
-  --muted: #191d27;
-  --muted-foreground: #8e96aa;
-  --accent: rgb(139 146 255 / 0.13);
-  --accent-foreground: #cdd0ff;
-  --destructive: #ff8a9b;
-  --border: rgb(255 255 255 / 0.075);
-  --input: rgb(255 255 255 / 0.12);
-  --ring: #8b92ff;
+/* ── Dark (the default): a deep green-slate blotter. Depth comes from
+   lightness: desk, rail, things on the desk, the paper. On screen only:
+   printing (Save as PDF) always uses the light theme, dark ink on white,
+   since printers drop the dark backgrounds the light text relies on. ── */
+@media screen {
+  .dark {
+    color-scheme: dark;
+    --background: #151b19;
+    --panel: #1d2422;
+    --foreground: #e7ece9;
+    --card: #1d2422;
+    --card-foreground: #e7ece9;
+    --popover: #222a27;
+    --popover-foreground: #e7ece9;
+    --surface: #252e2b;
+    --primary: #ffd43b;
+    --primary-hover: #ffe070;
+    --primary-foreground: #1a1a10;
+    --secondary: #252e2b;
+    --secondary-foreground: #e7ece9;
+    --muted: #252e2b;
+    --muted-foreground: #9ba7a1;
+    --accent: rgb(255 212 59 / 0.12);
+    --accent-foreground: #ffe48a;
+    --destructive: #ff8273;
+    --border: rgb(231 236 233 / 0.09);
+    --input: rgb(231 236 233 / 0.16);
+    --ring: #ffd43b;
 
-  --success: #4cd69b;
-  --success-soft: rgb(76 214 155 / 0.09);
-  --success-line: rgb(76 214 155 / 0.24);
-  --info: #86b4ff;
-  --info-soft: rgb(134 180 255 / 0.09);
-  --info-line: rgb(134 180 255 / 0.24);
-  --warning: #f2b45a;
-  --warning-soft: rgb(242 180 90 / 0.09);
-  --warning-line: rgb(242 180 90 / 0.24);
-  --danger: #ff8a9b;
-  --danger-soft: rgb(255 138 155 / 0.09);
-  --danger-line: rgb(255 138 155 / 0.24);
+    --success: #5fd49b;
+    --success-soft: rgb(95 212 155 / 0.09);
+    --success-line: rgb(95 212 155 / 0.26);
+    --info: #8fb9ff;
+    --info-soft: rgb(143 185 255 / 0.09);
+    --info-line: rgb(143 185 255 / 0.26);
+    --warning: #ffab5e;
+    --warning-soft: rgb(255 171 94 / 0.09);
+    --warning-line: rgb(255 171 94 / 0.26);
+    --danger: #ff8273;
+    --danger-soft: rgb(255 130 115 / 0.09);
+    --danger-line: rgb(255 130 115 / 0.26);
 
-  --chart-1: #8b92ff;
-  --chart-2: #4cd69b;
-  --chart-3: #f2b45a;
-  --chart-4: #8e96aa;
-  --chart-5: #ff8a9b;
-  --sidebar: #08090d;
-  --sidebar-foreground: #eceef4;
-  --sidebar-primary: #8b92ff;
-  --sidebar-primary-foreground: #0a0d1a;
-  --sidebar-accent: rgb(255 255 255 / 0.05);
-  --sidebar-accent-foreground: #eceef4;
-  --sidebar-border: rgb(255 255 255 / 0.06);
-  --sidebar-ring: #8b92ff;
+    /* The paper turns dark slate, a step above the desk, with light ink; the
+       pens lighten to read on it, and the highlighter becomes a translucent
+       tint behind light text, as dark-mode readers draw it. */
+    --paper: #222a27;
+    --paper-ink: #e6ebe7;
+    --paper-muted: #a5b0ab;
+    --paper-line: rgb(230 235 231 / 0.13);
+    --paper-scheme: dark;
+    --paper-primary: #ffd43b;
+    --pen-red: #ff8f80;
+    --pen-amber: #f6b765;
+    --pen-blue: #98bfff;
+    --pen-green: #6fd9a5;
+    /* Light ink stays above 5:1 on both tints. */
+    --mark-issue: rgb(255 122 106 / 0.36);
+    --mark-warning: rgb(255 212 59 / 0.3);
 
-  --elevation-raised: inset 0 1px 0 rgb(255 255 255 / 0.035), 0 1px 2px rgb(0 0 0 / 0.45);
-  --elevation-float: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 2px 4px rgb(0 0 0 / 0.4),
-    0 20px 48px -16px rgb(0 0 0 / 0.75);
-  --elevation-sheet: inset 0 1px 0 rgb(255 255 255 / 0.03), 0 1px 2px rgb(0 0 0 / 0.4);
+    --sidebar: #101513;
+    --sidebar-foreground: #e7ece9;
+    --sidebar-primary: #ffd43b;
+    --sidebar-primary-foreground: #1a1a10;
+    --sidebar-accent: rgb(231 236 233 / 0.06);
+    --sidebar-accent-foreground: #e7ece9;
+    --sidebar-border: rgb(231 236 233 / 0.07);
+    --sidebar-ring: #ffd43b;
+
+    --elevation-raised: inset 0 1px 0 rgb(255 255 255 / 0.04), 0 1px 2px rgb(0 0 0 / 0.4);
+    --elevation-float: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 2px 4px rgb(0 0 0 / 0.35),
+      0 22px 48px -18px rgb(0 0 0 / 0.75);
+    /* A faint light edge and a deep shadow: a dark sheet still lifts off the dark desk. */
+    --elevation-sheet: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 0 0 1px rgb(255 255 255 / 0.04),
+      0 1px 1px rgb(0 0 0 / 0.4), 0 6px 12px -6px rgb(0 0 0 / 0.45), 0 30px 60px -28px rgb(0 0 0 / 0.85);
+
+    /* Light specks on the dark blotter. */
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 }
 
 /* ── Base ── */
@@ -225,9 +270,11 @@
   html {
     @apply font-sans scroll-smooth;
     text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01" 0;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: var(--grain) repeat, var(--background);
   }
   h1,
   h2,
@@ -237,8 +284,10 @@
   p {
     text-wrap: pretty;
   }
+  /* Selecting text is highlighting it. */
   ::selection {
-    background: color-mix(in oklab, var(--primary) 24%, transparent);
+    background: #ffd43b;
+    color: #1a1a10;
   }
   /* A visible focus ring on everything; components may draw their own. */
   :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
@@ -247,65 +296,130 @@
   }
 }
 
-/* Small mono label above headings: "01 — Upload". */
-@utility eyebrow {
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted-foreground);
+/* ── A sheet of paper on the desk. Inside it, the theme's tokens are
+   re-pointed at the paper's ink and pens (tints mixed from them), so any
+   shared component (a badge, a copy button) reads correctly on it in either
+   theme, and focus rings take the ink's color. ── */
+@utility paper {
+  color-scheme: var(--paper-scheme);
+  background-color: var(--paper);
+  color: var(--paper-ink);
+  box-shadow: var(--elevation-sheet);
+  border-radius: 3px;
+  --ring: var(--paper-ink);
+  --foreground: var(--paper-ink);
+  --card: var(--paper);
+  --muted: color-mix(in oklab, var(--paper-ink) 6%, transparent);
+  --muted-foreground: var(--paper-muted);
+  --surface: color-mix(in oklab, var(--paper-ink) 3.5%, transparent);
+  --border: var(--paper-line);
+  --input: color-mix(in oklab, var(--paper-ink) 24%, transparent);
+  --primary: var(--paper-primary);
+  --success: var(--pen-green);
+  --success-soft: color-mix(in oklab, var(--pen-green) 9%, transparent);
+  --success-line: color-mix(in oklab, var(--pen-green) 30%, transparent);
+  --info: var(--pen-blue);
+  --info-soft: color-mix(in oklab, var(--pen-blue) 8%, transparent);
+  --info-line: color-mix(in oklab, var(--pen-blue) 28%, transparent);
+  --warning: var(--pen-amber);
+  --warning-soft: color-mix(in oklab, var(--pen-amber) 9%, transparent);
+  --warning-line: color-mix(in oklab, var(--pen-amber) 30%, transparent);
+  --danger: var(--pen-red);
+  --danger-soft: color-mix(in oklab, var(--pen-red) 8%, transparent);
+  --danger-line: color-mix(in oklab, var(--pen-red) 28%, transparent);
 }
 
-/* ── The audit mark: a thin blue rule and a mono index ("02 / Review").
-   ApplyAudit's one repeated device: section openings, margin notes,
-   report labels. The rule draws down when its section comes into view. ── */
-@utility audit-mark {
-  position: relative;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.5em;
-  padding-left: 0.75rem;
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  line-height: 1rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted-foreground);
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: -0.1875rem;
-    bottom: -0.1875rem;
-    width: 2px;
-    background: var(--primary);
-    transform-origin: top;
-    animation: draw-y 700ms var(--ease-out-expo) both;
-    animation-delay: var(--at, 0ms);
-  }
+/* ── The highlighter. A marker stroke behind the words, a little ragged at
+   both ends, painted on every line a phrase wraps onto. `--mark` sets the
+   ink; `--at` delays the sweep, so a page can mark itself top to bottom. ── */
+@utility marker {
+  --mark: var(--mark-warning);
+  background-image: linear-gradient(
+    100deg,
+    transparent 0.08em,
+    var(--mark) 0.3em,
+    var(--mark) calc(100% - 0.3em),
+    transparent calc(100% - 0.06em)
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 74%;
+  background-position: 0 62%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0 0.22em;
+  margin: 0 -0.22em;
+  animation: marker-sweep 650ms var(--ease-out-quart) both;
+  animation-delay: var(--at, 0ms);
 }
-@keyframes draw-y {
+@keyframes marker-sweep {
   from {
-    transform: scaleY(0);
+    background-size: 0% 74%;
   }
 }
 
-/* ── Waiting with no known progress: a highlight sweeps the bar (marketing's) ── */
-@keyframes indeterminate {
+/* The highlighter as a solid chip, for ink text off the paper (the menu's
+   current page): its ground is always yellow, so the ink never sits on the
+   dark desk, not even for a frame. */
+@utility marker-chip {
+  background-color: var(--cta);
+  color: var(--cta-foreground);
+  border-radius: 3px 7px 4px 6px;
+  padding: 0.1em 0.32em;
+  margin: -0.1em -0.32em;
+}
+
+/* A blue-pencil underline: an optional idea, nothing wrong. */
+@utility pencil-underline {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--pen-blue);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
+/* An SVG stroke that draws itself once (paths set pathLength="1"). */
+@utility draw-stroke {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-stroke 1100ms var(--ease-out-expo) forwards;
+  animation-delay: var(--at, 0ms);
+}
+@keyframes draw-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── The scanner: a band of highlighter light moving down the page while the
+   server reads it. Indeterminate on purpose: the browser cannot see the
+   server's progress, so nothing here pretends to measure it. ── */
+@utility scan-sweep {
+  animation: scan-sweep 2.6s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+@keyframes scan-sweep {
   from {
-    transform: translate3d(-100%, 0, 0);
+    transform: translateY(-12%);
   }
   to {
-    transform: translate3d(250%, 0, 0);
+    transform: translateY(100%);
   }
 }
-.indeterminate-bar {
-  animation: indeterminate 1.8s var(--ease-out-quart) infinite;
+
+/* ── A line that needs attention, briefly: the fix you picked, on the page. ── */
+@keyframes attention {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  30% {
+    box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--paper-ink);
+  }
+}
+.attention {
+  animation: attention 1.6s var(--ease-out-quart) 1;
 }
 
-/* ── Reduced motion: no movement, no loops ── */
+/* ── Reduced motion: no movement, no loops; everything at its final state ── */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -319,6 +433,26 @@
   }
 }
 
+/* ── Printing keeps only the marked-up page and its notes: the way to keep an
+   audit, since nothing is stored. ── */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body {
+    background: #fff !important;
+  }
+  [data-print="hide"] {
+    display: none !important;
+  }
+  .paper {
+    box-shadow: none !important;
+  }
+  .marker {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
 
 /* ── Scrollbar (dark) ── */
 .dark ::-webkit-scrollbar {
@@ -328,10 +462,10 @@
   background: var(--background);
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: #1d2333;
+  background: #2a3430;
   border-radius: 8px;
   border: 2px solid var(--background);
 }
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #2a3145;
+  background: #36433e;
 }

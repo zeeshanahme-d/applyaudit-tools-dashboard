@@ -52,7 +52,7 @@ export default function DashboardLayout() {
     }, [pathname]);
 
     return (
-        <div className="relative flex min-h-dvh bg-background">
+        <div className="relative flex min-h-dvh">
             <a
                 href="#main"
                 className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-60 focus:rounded-lg focus:bg-card focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-float"
@@ -76,9 +76,9 @@ export default function DashboardLayout() {
                 setIsMobileOpen={setIsMobileOpen}
             />
 
-            {/* From tablets up the pages sit on an inset panel, a step above the canvas the sidebar shares.
+            {/* The pages lie directly on the desk (the body's grained background); the paper is what rises.
                 While the phone menu is open, everything here is out of reach (inert). */}
-            <div inert={isMobileOpen} className="relative flex min-h-dvh min-w-0 flex-1 flex-col md:py-2 md:pr-2">
+            <div inert={isMobileOpen} className="relative flex min-h-dvh min-w-0 flex-1 flex-col">
                 <DashboardHeader isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
 
                 {/* Focusable (not tabbable) for the skip link and route changes; no ring, it is a landing point. */}
@@ -86,7 +86,7 @@ export default function DashboardLayout() {
                     id="main"
                     ref={mainRef}
                     tabIndex={-1}
-                    className="flex-1 bg-panel outline-none md:rounded-xl md:border md:border-border md:shadow-raised"
+                    className="flex-1 outline-none"
                 >
                     {/* Each route arrives with a short fade and a 4px rise. */}
                     <div key={pathname} className="animate-in fade-in-0 slide-in-from-bottom-1 duration-200 ease-out">

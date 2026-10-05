@@ -19,40 +19,36 @@ export interface ScoreBreakdownProps {
 }
 
 /** Each factor: its score, the counts behind it, how it is calculated. Frameless; the page places it. */
-export function ScoreBreakdown({
-  title = "Category Breakdown",
-  items,
-  className,
-}: ScoreBreakdownProps) {
+export function ScoreBreakdown({ title, items, className }: ScoreBreakdownProps) {
   const mounted = useAfterFirstPaint();
 
   return (
-    <div className={cn("space-y-4", className)}>
-      {title && <h3 className="text-[13px] font-semibold text-foreground">{title}</h3>}
+    <div className={className}>
+      {title && <h3 className="mb-4 text-[14px] font-semibold text-foreground">{title}</h3>}
 
-      <div className="space-y-4">
+      <div className="grid gap-x-10 gap-y-7 sm:grid-cols-2">
         {items.map((item) => {
           const state: ScoreState = getScoreState(item.score);
           const tone = SCORE_TONES[state.colorToken];
 
           return (
             <div key={item.label}>
-              <div className="flex items-center justify-between gap-3 text-[13px]">
-                <span className="font-medium text-foreground">{item.label}</span>
-                <span className="flex items-center gap-2.5">
-                  <span className={cn("text-[12px] font-medium", tone.text)}>{state.status}</span>
-                  <span className="w-8 text-right font-semibold tabular-nums text-foreground">{item.score}</span>
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-[14px] font-semibold text-foreground">{item.label}</span>
+                <span className="font-serif text-[24px] font-medium italic leading-none tabular-nums text-foreground">
+                  {item.score}
                 </span>
               </div>
 
-              <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+              <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-foreground/10" aria-hidden="true">
                 <div
                   className={cn("h-full origin-left rounded-full transition-transform duration-1000 ease-out-expo", tone.bar)}
                   style={{ transform: `scaleX(${mounted ? item.score / 100 : 0})` }}
                 />
               </div>
-              {item.detail && <p className="mt-1.5 text-[12px] text-muted-foreground">{item.detail}</p>}
-              {item.help && <p className="mt-0.5 text-[12px] leading-snug text-muted-foreground">{item.help}</p>}
+              <p className={cn("mt-2 text-[12.5px] font-medium", tone.text)}>{state.status}</p>
+              {item.detail && <p className="mt-1 text-[13px] text-foreground/85">{item.detail}</p>}
+              {item.help && <p className="mt-1 text-[12.5px] leading-relaxed text-muted-foreground">{item.help}</p>}
             </div>
           );
         })}

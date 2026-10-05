@@ -9,10 +9,11 @@ export interface CopyImprovementButtonProps {
   className?: string;
 }
 
+/** Copies a rewrite. Reads on the desk and on paper alike (it uses the surface's tokens). */
 export function CopyImprovementButton({
   text,
-  label = "Copy Improved Version",
-  copiedLabel = "Copied to Clipboard!",
+  label = "Copy rewrite",
+  copiedLabel = "Copied",
   className,
 }: CopyImprovementButtonProps) {
   const [copied, setCopied] = useState(false);
@@ -33,10 +34,10 @@ export function CopyImprovementButton({
       type="button"
       onClick={handleCopy}
       className={cn(
-        "inline-flex h-8 pointer-coarse:h-11 select-none items-center justify-center gap-1.5 rounded-md border px-3 text-[12px] font-medium transition-colors duration-150 cursor-pointer active:translate-y-px",
+        "inline-flex h-8 pointer-coarse:h-11 select-none items-center justify-center gap-1.5 rounded-sm border px-3 text-[12.5px] font-medium transition-colors duration-150 cursor-pointer active:translate-y-px",
         copied
-          ? "border-success bg-success text-white dark:text-background"
-          : "border-border bg-card text-foreground shadow-raised hover:border-foreground/20",
+          ? "border-success-line bg-success-soft text-success"
+          : "border-input text-foreground hover:border-foreground/40 hover:bg-foreground/5",
         className
       )}
     >

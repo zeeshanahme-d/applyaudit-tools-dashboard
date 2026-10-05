@@ -1,10 +1,11 @@
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import App from './App';
-// Self-hosted, like next/font on the marketing site: no request to a font CDN.
-import "@fontsource-variable/inter";
-import "@fontsource-variable/manrope";
-import "@fontsource-variable/jetbrains-mono";
+// Self-hosted: no request to a font CDN. Newsreader with its optical-size axis,
+// upright and italic: the paper, headlines and the score.
+import "@fontsource-variable/instrument-sans";
+import "@fontsource-variable/newsreader/opsz.css";
+import "@fontsource-variable/newsreader/opsz-italic.css";
 import "./globals.css";
 
 createRoot(document.getElementById('root')!).render(
