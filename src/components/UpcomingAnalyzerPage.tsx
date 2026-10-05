@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom";
-import type { ReactNode } from "react";
 import { buttonClass } from "@/components/ui/button";
-
-export interface AnalyzerFeature {
-  icon: ReactNode;
-  title: string;
-  description: string;
-}
+import type { ToolCheck } from "@/data/tools";
 
 export interface UpcomingAnalyzerPageProps {
   /** The page's H1. */
@@ -15,7 +9,7 @@ export interface UpcomingAnalyzerPageProps {
   description: string;
   /** Heading above the list of checks. */
   featuresHeading: string;
-  features: AnalyzerFeature[];
+  features: readonly ToolCheck[];
   /** What the visitor can genuinely use right now. */
   availableNow?: { href: string; label: string };
 }
@@ -69,9 +63,7 @@ export function UpcomingAnalyzerPage({
           <dl className="mt-4 divide-y divide-border border-y border-border">
             {features.map((feature) => (
               <div key={feature.title} className="flex gap-3 py-3">
-                <span className="mt-0.5 shrink-0 text-muted-foreground [&_svg]:size-4" aria-hidden="true">
-                  {feature.icon}
-                </span>
+                <feature.icon className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
                 <div>
                   <dt className="text-[14px] font-semibold text-foreground">{feature.title}</dt>
                   <dd className="mt-0.5 text-[13.5px] leading-relaxed text-muted-foreground">{feature.description}</dd>

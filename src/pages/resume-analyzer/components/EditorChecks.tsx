@@ -1,12 +1,5 @@
-import { CircleCheck, PenLine, ScanSearch, Target } from "lucide-react";
+import { TOOLS } from "@/data/tools";
 import { MarkLegend } from "./MarkLegend";
-
-const checks = [
-  { icon: Target, title: "Impact", description: "Action verbs, numbers for scope and results, and clear progression." },
-  { icon: PenLine, title: "Every bullet", description: "Line by line: what is weak, why, and a rewrite you can copy." },
-  { icon: CircleCheck, title: "Summary and sections", description: "Your summary, work history, skills, and the sections recruiters expect." },
-  { icon: ScanSearch, title: "Readability", description: "Length, bullet size and structure, so a recruiter can skim it." },
-];
 
 /** Under the blank sheet: what the audit looks at, side by side, and how its marks will read. */
 export function EditorChecks() {
@@ -16,7 +9,7 @@ export function EditorChecks() {
         What the editor checks
       </h2>
       <dl className="mt-5 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
-        {checks.map((check) => (
+        {TOOLS.resume.checks.map((check) => (
           <div key={check.title} className="border-t border-border pt-4">
             <dt className="flex items-center gap-2 text-[14.5px] font-semibold text-foreground">
               <check.icon className="size-4 shrink-0 text-primary" aria-hidden="true" />
